@@ -1,1 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Lean, Stay Sharp | Glow-Up Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --primary-dark: #2667cc;
+            --secondary: #8338ec;
+            --success: #06d6a0;
+            --warning: #ffbe0b;
+            --danger: #ef476f;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --bg-light: #ffffff;
+            --text-light: #495057;
+            --bg-dark: #1a1a2e;
+            --text-dark: #e6e6e6;
+            --card-bg-light: #f1faee;
+            --card-bg-dark: #16213e;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        body.dark-mode h1 {
+            color: var(--warning);
+        }
+
+        .theme-toggle {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .quote-container {
+            background-color: var(--card-bg-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        body.dark-mode .quote-container {
+            background-color: var(--card-bg-dark);
+        }
+
+        .quote {
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        body.dark-mode .author {
+            color: var(--warning);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        body.dark-mode .card {
+            background-color: var(--card-bg-dark);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.dark-mode .card h2 {
+            color: var(--warning);
+        }
+
+        .card h2 svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        body.dark-mode .progress-bar {
+            background-color: #2d3748;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .streak-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .streak-box {
+            text-align: center;
+            flex: 1;
+        }
+
+        .streak-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        body.dark-mode .streak-number {
+            color: var(--warning);
+        }
+
+        .streak-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .workout-plan {
+            margin-bottom: 20px;
+        }
+
+        .workout-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .workout-item {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .workout-item:last-child {
+            border-bottom: none;
+        }
+
+        .workout-exercise {
+            font-weight: 500;
+        }
+
+        .workout-reps {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .checklist-item {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checklist-label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .checklist-item.completed .checklist-label {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .calendar-header {
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            background-color: #e9ecef;
+        }
+
+        body.dark-mode .calendar-day {
+            background-color: #2d3748;
+        }
+
+        .calendar-day.completed {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .calendar-day.partial {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+
+        .calendar-day.empty {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--primary);
+        }
+
+        body.dark-mode .calendar-day.today {
+            border: 2px solid var(--warning);
+        }
+
+        .date-display {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        body.dark-mode .date-display {
+            color: var(--warning);
+        }
+
+        .save-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .save-btn {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+
+        .save-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .history-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .history-btn {
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .history-btn:hover {
+            background-color: rgba(58, 134, 255, 0.1);
+        }
+
+        body.dark-mode .history-btn:hover {
+            background-color: rgba(255, 190, 11, 0.1);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--bg-dark);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .modal-title {
+            color: var(--warning);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .history-list {
+            list-style: none;
+        }
+
+        .history-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: var(--card-bg-light);
+            border-radius: var(--border-radius);
+        }
+
+        body.dark-mode .history-item {
+            background-color: var(--card-bg-dark);
+        }
+
+        .history-date {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        body.dark-mode .history-date {
+            color: var(--warning);
+        }
+
+        .history-tasks {
+            list-style: none;
+            margin-left: 5px;
+        }
+
+        .history-task {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .history-task.completed::before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 8px;
+        }
+
+        .history-task.incomplete::before {
+            content: "✗";
+            color: var(--danger);
+            margin-right: 8px;
+        }
+
+        .no-history {
+            text-align: center;
+            color: var(--gray);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Let's Glow Up, One Day at a Time 💯</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                Light Mode
+            </button>
+        </header>
+
+        <div class="quote-container">
+            <p class="quote" id="dailyQuote">Discipline is choosing between what you want now and what you want most.</p>
+            <p class="author" id="quoteAuthor">Abraham Lincoln</p>
+        </div>
+
+        <div class="date-display" id="currentDate">
+            Today's Date: Loading...
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Progress Dashboard
+                </h2>
+                <div class="progress-container">
+                    <p>Today's Progress</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="completedTasks">0</span>
+                        <span>/ 7 tasks completed</span>
+                    </div>
+                </div>
+                <div class="streak-container">
+                    <div class="streak-box">
+                        <div class="streak-number" id="currentStreak">0</div>
+                        <div class="streak-label">Current Streak</div>
+                    </div>
+                    <div class="streak-box">
+                        <div class="streak-number" id="longestStreak">0</div>
+                        <div class="streak-label">Longest Streak</div>
+                    </div>
+                </div>
+                <h3 style="margin-top: 20px; margin-bottom: 10px;">Weekly Progress</h3>
+                <div class="calendar-header">
+                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                </div>
+                <div class="calendar" id="weeklyCalendar">
+                    <!-- Calendar days will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Daily Checklist
+                </h2>
+                <ul class="checklist" id="dailyChecklist">
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task1" data-task="workout">
+                        <label for="task1" class="checklist-label">🏋️ Completed full 2-3 sets workout</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task2" data-task="eggs">
+                        <label for="task2" class="checklist-label">🥚 Ate 3-5 eggs</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task3" data-task="meals">
+                        <label for="task3" class="checklist-label">🍲 Ate clean meals (roti, sabzi, chana, etc.)</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task4" data-task="water">
+                        <label for="task4" class="checklist-label">💧 Drank 2.5-3L water</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task5" data-task="skincare">
+                        <label for="task5" class="checklist-label">🧼 Skincare done (washed face, moisturized, optional ice)</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task6" data-task="grooming">
+                        <label for="task6" class="checklist-label">✂️ Groomed properly (hair/beard/clothes)</label>
+                    </li>
+                    <li class="checklist-item">
+                        <input type="checkbox" id="task7" data-task="sleep">
+                        <label for="task7" class="checklist-label">😴 Slept 6-8 hours</label>
+                    </li>
+                </ul>
+                <button class="save-btn" id="saveProgress">Save Today's Progress</button>
+                <button class="history-btn" id="viewHistory">View History</button>
+            </div>
+        </div>
+
+        <div class="card workout-plan">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Daily Workout Plan
+            </h2>
+            <p style="margin-bottom: 15px;">Do 2-3 rounds (sets) of the following exercises:</p>
+            <div class="workout-item">
+                <span class="workout-exercise">Jumping Jacks</span>
+                <span class="workout-reps">1 minute per set (cardio warm-up, fat burn)</span>
+            </div>
+            <div class="workout-item">
+                <span class="workout-exercise">Push-ups</span>
+                <span class="workout-reps">10-15 reps per set (chest, shoulders, arms)</span>
+            </div>
+            <div class="workout-item">
+                <span class="workout-exercise">Bodyweight Squats</span>
+                <span class="workout-reps">15-20 reps per set (legs, glutes)</span>
+            </div>
+            <div class="workout-item">
+                <span class="workout-exercise">Plank</span>
+                <span class="workout-reps">30-60 seconds per set (core, abs, posture)</span>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gray);">
+                Rest 30-60 seconds between sets. Start with 2 sets; move to 3 sets after 1-2 weeks. Takes around 10-15 minutes per day.
+            </p>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Your Progress History</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <ul class="history-list" id="historyList">
+                <!-- History items will be inserted here by JavaScript -->
+            </ul>
+            <p class="no-history" id="noHistoryMessage">No history available yet. Complete some tasks and save your progress!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const themeToggle = document.getElementById('themeToggle');
+            const currentDateEl = document.getElementById('currentDate');
+            const progressFill = document.getElementById('progressFill');
+            const completedTasksEl = document.getElementById('completedTasks');
+            const currentStreakEl = document.getElementById('currentStreak');
+            const longestStreakEl = document.getElementById('longestStreak');
+            const weeklyCalendar = document.getElementById('weeklyCalendar');
+            const dailyChecklist = document.getElementById('dailyChecklist');
+            const saveProgressBtn = document.getElementById('saveProgress');
+            const viewHistoryBtn = document.getElementById('viewHistory');
+            const historyModal = document.getElementById('historyModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const historyList = document.getElementById('historyList');
+            const noHistoryMessage = document.getElementById('noHistoryMessage');
+            const dailyQuote = document.getElementById('dailyQuote');
+            const quoteAuthor = document.getElementById('quoteAuthor');
+
+            // Quotes data
+            const quotes = [
+                {
+                    text: "Discipline is choosing between what you want now and what you want most.",
+                    author: "Abraham Lincoln"
+                },
+                {
+                    text: "The only bad workout is the one that didn't happen.",
+                    author: "Unknown"
+                },
+                {
+                    text: "Success is the sum of small efforts, repeated day in and day out.",
+                    author: "Robert Collier"
+                },
+                {
+                    text: "You don't have to be extreme, just consistent.",
+                    author: "Unknown"
+                },
+                {
+                    text: "The body achieves what the mind believes.",
+                    author: "Unknown"
+                },
+                {
+                    text: "Stay lean, stay sharp, stay disciplined.",
+                    author: "Unknown"
+                },
+                {
+                    text: "Small daily improvements are the key to staggering long-term results.",
+                    author: "Unknown"
+                }
+            ];
+
+            // Initialize app
+            initTheme();
+            updateDate();
+            loadQuote();
+            loadProgress();
+            updateProgressBar();
+            updateStreaks();
+            generateCalendar();
+
+            // Event listeners
+            themeToggle.addEventListener('click', toggleTheme);
+            dailyChecklist.addEventListener('change', updateProgressBar);
+            saveProgressBtn.addEventListener('click', saveProgress);
+            viewHistoryBtn.addEventListener('click', openHistoryModal);
+            closeModalBtn.addEventListener('click', closeHistoryModal);
+            window.addEventListener('click', outsideModalClick);
+
+            // Functions
+            function initTheme() {
+                const darkMode = localStorage.getItem('darkMode') === 'true';
+                if (darkMode) {
+                    document.body.classList.add('dark-mode');
+                    themeToggle.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        Dark Mode
+                    `;
+                }
+            }
+
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+
+                if (isDarkMode) {
+                    themeToggle.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        Dark Mode
+                    `;
+                } else {
+                    themeToggle.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        Light Mode
+                    `;
+                }
+            }
+
+            function updateDate() {
+                const today = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                currentDateEl.textContent = `Today's Date: ${today.toLocaleDateString('en-US', options)}`;
+            }
+
+            function loadQuote() {
+                const today = new Date();
+                const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+                const quoteIndex = dayOfYear % quotes.length;
+                
+                dailyQuote.textContent = quotes[quoteIndex].text;
+                quoteAuthor.textContent = quotes[quoteIndex].author;
+            }
+
+            function loadProgress() {
+                const today = getFormattedDate();
+                const savedData = localStorage.getItem('glowUpProgress');
+                let progressData = savedData ? JSON.parse(savedData) : {};
+                
+                if (progressData[today]) {
+                    const tasks = progressData[today].tasks;
+                    Object.keys(tasks).forEach(taskId => {
+                        const checkbox = document.querySelector(`#${taskId}`);
+                        if (checkbox) {
+                            checkbox.checked = tasks[taskId];
+                            const listItem = checkbox.closest('.checklist-item');
+                            if (tasks[taskId]) {
+                                listItem.classList.add('completed');
+                            } else {
+                                listItem.classList.remove('completed');
+                            }
+                        }
+                    });
+                }
+            }
+
+            function updateProgressBar() {
+                const checkboxes = dailyChecklist.querySelectorAll('input[type="checkbox"]');
+                let completedCount = 0;
+                
+                checkboxes.forEach(checkbox => {
+                    const listItem = checkbox.closest('.checklist-item');
+                    if (checkbox.checked) {
+                        completedCount++;
+                        listItem.classList.add('completed');
+                    } else {
+                        listItem.classList.remove('completed');
+                    }
+                });
+                
+                const percentage = Math.round((completedCount / 7) * 100);
+                progressFill.style.width = `${percentage}%`;
+                completedTasksEl.textContent = completedCount;
+            }
+
+            function updateStreaks() {
+                const savedData = localStorage.getItem('glowUpProgress');
+                let progressData = savedData ? JSON.parse(savedData) : {};
+                const dates = Object.keys(progressData).sort();
+                
+                let currentStreak = 0;
+                let longestStreak = 0;
+                let tempStreak = 0;
+                
+                // Convert dates to Date objects and sort chronologically
+                const dateObjects = dates.map(dateStr => {
+                    const [month, day, year] = dateStr.split('-').map(Number);
+                    return new Date(year, month - 1, day);
+                }).sort((a, b) => a - b);
+                
+                // Calculate streaks
+                for (let i = 1; i < dateObjects.length; i++) {
+                    const prevDate = dateObjects[i - 1];
+                    const currDate = dateObjects[i];
+                    
+                    // Check if dates are consecutive
+                    const diffDays = Math.floor((currDate - prevDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 1) {
+                        tempStreak++;
+                        longestStreak = Math.max(longestStreak, tempStreak);
+                    } else if (diffDays > 1) {
+                        tempStreak = 0;
+                    }
+                }
+                
+                // Check current streak (most recent consecutive days)
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                const formattedToday = getFormattedDate(today);
+                const formattedYesterday = getFormattedDate(yesterday);
+                
+                if (progressData[formattedToday]) {
+                    currentStreak = 1;
+                    
+                    if (progressData[formattedYesterday]) {
+                        // Find how many consecutive days before today are completed
+                        let checkDate = new Date(yesterday);
+                        let streakDays = 1;
+                        
+                        while (true) {
+                            const formattedCheckDate = getFormattedDate(checkDate);
+                            if (progressData[formattedCheckDate]) {
+                                streakDays++;
+                                checkDate.setDate(checkDate.getDate() - 1);
+                            } else {
+                                break;
+                            }
+                        }
+                        
+                        currentStreak = streakDays;
+                    }
+                }
+                
+                currentStreakEl.textContent = currentStreak;
+                longestStreakEl.textContent = longestStreak + 1; // +1 because we count the starting day
+            }
+
+            function generateCalendar() {
+                const today = new Date();
+                const currentDay = today.getDate();
+                const currentMonth = today.getMonth();
+                const currentYear = today.getFullYear();
+                
+                // Get the first day of the month
+                const firstDay = new Date(currentYear, currentMonth, 1);
+                const startingDay = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
+                
+                // Get the last day of the month
+                const lastDay = new Date(currentYear, currentMonth + 1, 0);
+                const totalDays = lastDay.getDate();
+                
+                // Get progress data
+                const savedData = localStorage.getItem('glowUpProgress');
+                let progressData = savedData ? JSON.parse(savedData) : {};
+                
+                // Clear calendar
+                weeklyCalendar.innerHTML = '';
+                
+                // Create calendar days for current week
+                const weekStart = new Date(today);
+                weekStart.setDate(currentDay - today.getDay()); // Start from Sunday
+                
+                for (let i = 0; i < 7; i++) {
+                    const dayDate = new Date(weekStart);
+                    dayDate.setDate(weekStart.getDate() + i);
+                    
+                    const dayEl = document.createElement('div');
+                    dayEl.classList.add('calendar-day');
+                    
+                    // Check if day is today
+                    if (dayDate.getDate() === currentDay && 
+                        dayDate.getMonth() === currentMonth && 
+                        dayDate.getFullYear() === currentYear) {
+                        dayEl.classList.add('today');
+                    }
+                    
+                    // Add day number
+                    dayEl.textContent = dayDate.getDate();
+                    
+                    // Check progress for this day
+                    const formattedDate = getFormattedDate(dayDate);
+                    if (progressData[formattedDate]) {
+                        const completedTasks = Object.values(progressData[formattedDate].tasks).filter(Boolean).length;
+                        if (completedTasks === 7) {
+                            dayEl.classList.add('completed');
+                        } else if (completedTasks > 0) {
+                            dayEl.classList.add('partial');
+                        }
+                    }
+                    
+                    // Add to calendar
+                    weeklyCalendar.appendChild(dayEl);
+                }
+            }
+
+            function saveProgress() {
+                const today = getFormattedDate();
+                const checkboxes = dailyChecklist.querySelectorAll('input[type="checkbox"]');
+                
+                let tasks = {};
+                checkboxes.forEach(checkbox => {
+                    tasks[checkbox.id] = checkbox.checked;
+                });
+                
+                const savedData = localStorage.getItem('glowUpProgress');
+                let progressData = savedData ? JSON.parse(savedData) : {};
+                
+                progressData[today] = {
+                    date: new Date().toISOString(),
+                    tasks: tasks
+                };
+                
+                localStorage.setItem('glowUpProgress', JSON.stringify(progressData));
+                
+                // Update UI
+                updateStreaks();
+                generateCalendar();
+                
+                // Show confirmation
+                alert('Progress saved successfully!');
+            }
+
+            function openHistoryModal() {
+                const savedData = localStorage.getItem('glowUpProgress');
+                let progressData = savedData ? JSON.parse(savedData) : {};
+                const dates = Object.keys(progressData).sort((a, b) => {
+                    const dateA = new Date(progressData[a].date);
+                    const dateB = new Date(progressData[b].date);
+                    return dateB - dateA; // Sort newest first
+                });
+                
+                historyList.innerHTML = '';
+                
+                if (dates.length === 0) {
+                    noHistoryMessage.style.display = 'block';
+                } else {
+                    noHistoryMessage.style.display = 'none';
+                    
+                    dates.forEach(date => {
+                        const historyItem = document.createElement('li');
+                        historyItem.classList.add('history-item');
+                        
+                        const dateObj = new Date(progressData[date].date);
+                        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                        const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions);
+                        
+                        const tasks = progressData[date].tasks;
+                        const completedTasks = Object.values(tasks).filter(Boolean).length;
+                        
+                        let tasksHTML = '<ul class="history-tasks">';
+                        Object.entries(tasks).forEach(([taskId, isCompleted]) => {
+                            const taskLabel = document.querySelector(`label[for="${taskId}"]`).textContent;
+                            tasksHTML += `
+                                <li class="history-task ${isCompleted ? 'completed' : 'incomplete'}">
+                                    ${taskLabel}
+                                </li>
+                            `;
+                        });
+                        tasksHTML += '</ul>';
+                        
+                        historyItem.innerHTML = `
+                            <div class="history-date">${formattedDate} (${completedTasks}/7 completed)</div>
+                            ${tasksHTML}
+                        `;
+                        
+                        historyList.appendChild(historyItem);
+                    });
+                }
+                
+                historyModal.style.display = 'flex';
+            }
+
+            function closeHistoryModal() {
+                historyModal.style.display = 'none';
+            }
+
+            function outsideModalClick(e) {
+                if (e.target === historyModal) {
+                    closeHistoryModal();
+                }
+            }
+
+            function getFormattedDate(date = new Date()) {
+                const d = date || new Date();
+                const month = d.getMonth() + 1;
+                const day = d.getDate();
+                const year = d.getFullYear();
+                return `${month}-${day}-${year}`;
+            }
+        });
+    </script>
+</body>
+</html>
